@@ -4,22 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Learning - React</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="js/react.min.js"></script>
     <script src="js/react-dom.min.js"></script>
     <script src="js/browser.min.js"></script>
 </head>
 <body>
 
+<div id="example" class="container"></div>
 <div id="container" class="container"></div>
-<div id="projects" class="container"></div>
 
 <script type="text/babel">
     var Projects = React.createClass({
+        edit: function() {
+            console.log('Edit Clicked');
+        },
+        remove: function() {
+            console.log('Remove Clicked');
+        },
         render: function() {
             return (
-                <div>
-                    <h3>{this.props.title}</h3>
+                <div className="commentContainer col-md-11">
+                    <h3>{this.props.children}</h3>
                     <p>{this.props.subtitle}</p>
+                    <button onClick="{this.edit}" className="button-primary col-md-5">Edit</button>
+                    <button onClick="{this.remove}" className="button-danger col-md-5">Remove</button>
                 </div>
             );
         }
@@ -27,16 +36,16 @@
 
     ReactDOM.render(
         <h2>Welcome to React!</h2>,
-        document.getElementById('container')
+        document.getElementById('example')
     );
 
     ReactDOM.render(
-        <div>
-            <Projects title="Angular" subtitle="Learning Angular 2.0" />
-            <Projects title="React" subtitle="Begining for React" />
-            <Projects title="Ember" subtitle="Ember example" />
+        <div className="board  col-md-12">
+            <Projects subtitle="Learning Angular 2.0">Angular</Projects>
+            <Projects subtitle="Begining for React">React</Projects>
+            <Projects subtitle="Ember example">Ember</Projects>
         </div>,
-        document.getElementById('projects')
+        document.getElementById('container')
     );
 </script>
 
