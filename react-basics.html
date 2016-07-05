@@ -11,13 +11,25 @@
 <body>
 
 <div id="container" class="container"></div>
+<div id="component" class="container"></div>
 
 <script type="text/babel">
-        ReactDOM.render(
-            <h2>Welcome to React!</h2>,
-            document.getElementById('container')
-        );
-    </script>
+    var Component = React.createClass({
+        render: function() {
+            return (<h3>This is component for React!</h3>);
+        }
+    });
+
+    ReactDOM.render(
+        <h2>Welcome to React!</h2>,
+        document.getElementById('container')
+    );
+
+    ReactDOM.render(
+        <Component />,
+        document.getElementById('component')
+    );
+</script>
 
 </body>
 </html>
