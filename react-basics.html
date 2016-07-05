@@ -16,10 +16,10 @@
 
 <script type="text/babel">
     var Projects = React.createClass({
-        edit: function() {
+        editBtn: function() {
             console.log('Edit Clicked');
         },
-        remove: function() {
+        removeBtn: function() {
             console.log('Remove Clicked');
         },
         render: function() {
@@ -27,8 +27,8 @@
                 <div className="commentContainer col-md-11">
                     <h3>{this.props.children}</h3>
                     <p>{this.props.subtitle}</p>
-                    <button onClick="{this.edit}" className="button-primary col-md-5">Edit</button>
-                    <button onClick="{this.remove}" className="button-danger col-md-5">Remove</button>
+                    <button onClick={this.editBtn} className="button-primary col-md-5">Edit</button>
+                    <button onClick={this.removeBtn} className="button-danger col-md-5">Remove</button>
                 </div>
             );
         }
@@ -40,7 +40,7 @@
     );
 
     ReactDOM.render(
-        <div className="board  col-md-12">
+        <div className="board col-md-12">
             <Projects subtitle="Learning Angular 2.0">Angular</Projects>
             <Projects subtitle="Begining for React">React</Projects>
             <Projects subtitle="Ember example">Ember</Projects>
