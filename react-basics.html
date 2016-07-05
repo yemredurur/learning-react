@@ -11,15 +11,15 @@
 <body>
 
 <div id="container" class="container"></div>
-<div id="component" class="container"></div>
+<div id="projects" class="container"></div>
 
 <script type="text/babel">
-    var Component = React.createClass({
+    var Projects = React.createClass({
         render: function() {
             return (
                 <div>
-                    <h3>This is component for React!</h3>
-                    <p>Subtitle for react.</p>
+                    <h3>{this.props.title}</h3>
+                    <p>{this.props.subtitle}</p>
                 </div>
             );
         }
@@ -32,11 +32,11 @@
 
     ReactDOM.render(
         <div>
-            <Component />
-            <Component />
-            <Component />
+            <Projects title="Angular" subtitle="Learning Angular 2.0" />
+            <Projects title="React" subtitle="Begining for React" />
+            <Projects title="Ember" subtitle="Ember example" />
         </div>,
-        document.getElementById('component')
+        document.getElementById('projects')
     );
 </script>
 
