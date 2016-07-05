@@ -15,7 +15,7 @@
 <div id="container" class="container"></div>
 
 <script type="text/babel">
-    var Projects = React.createClass({
+    var Project = React.createClass({
         getInitialState: function () {
             return { showButtons : false, editing: false };
         },
@@ -30,6 +30,10 @@
             console.log('Remove Clicked');
         },
         save: function () {
+            console.log(
+                this.refs.projectTitle.value,
+                this.refs.projectSubTitle.value
+            )
             this.setState({ editing: false });
         },
         render: function() {
@@ -68,10 +72,10 @@
             return (
                     <div className="commentContainer col-md-11">
                         <p>Title:</p>
-                        <input type="text" ref="project-title" name="project-title" value={this.props.children} />
+                        <input type="text" ref="projectTitle" name="project-title" value={this.props.children} />
                         <p></p>
                         <p>Subtitle:</p>
-                        <input type="text" ref="project-subTitle" name="project-subTitle" value={this.props.subtitle} />
+                        <input type="text" ref="projectSubTitle" name="project-subTitle" value={this.props.subtitle} />
                         <p></p>
                         <div>
                             <button onClick={this.save} className="button-success-light col-md-5">Save</button>
@@ -81,17 +85,36 @@
         }
     });
 
+    var TodoList = React.createClass({
+        getInitialState: function () {
+            return {
+                todoList : [
+                    {title : 'Angular', subtitle: 'Learning Angular 2.0'},
+                    {title : 'React', subtitle: 'Begining for React'},
+                    {title : 'GG UiKit', subtitle: 'Front end ui kit'},
+                    {title : 'GG fred', subtitle: 'Front end fred'}
+                ]
+            };
+        },
+        render: function () {
+            return (
+                    <div className="board col-md-12">
+                        {
+                            this.state.todoList.map(function (project, i) {
+                                return (<Project key={i} subtitle={project.subtitle}>{project.title}</Project>)
+                            })                                
+                        }
+                    </div>
+            )
+        }
+    });
+
     ReactDOM.render(
-        <h2>Welcome to React!</h2>,
+        <h2>First Project For React!</h2>,
         document.getElementById('example')
     );
 
-    ReactDOM.render(
-        <div className="board col-md-12">
-            <Projects subtitle="Learning Angular 2.0">Angular</Projects>
-            <Projects subtitle="Begining for React">React</Projects>
-            <Projects subtitle="Ember example">Ember</Projects>
-        </div>,
+    ReactDOM.render(<TodoList />,
         document.getElementById('container')
     );
 </script>
