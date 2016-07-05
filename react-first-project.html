@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning - React</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+<body>
+
+<div id="example" class="container"></div>
+<div id="container" class="container"></div>
+
+<script type="text/babel">
+    var Projects = React.createClass({
+        getInitialState: function () {
+            return { showButtons : false, editing: false };
+        },
+        toggleButtons: function () {
+            this.setState({ showButtons: !this.state.showButtons });
+        },
+
+        editBtn: function() {
+            this.setState({ editing: true });
+        },
+        removeBtn: function() {
+            console.log('Remove Clicked');
+        },
+        save: function () {
+            this.setState({ editing: false });
+        },
+        render: function() {
+            var buttonClass = 'hidden';
+            if(this.state.showButtons) {
+                buttonClass = '';
+            }
+
+            if (!this.state.editing) {
+                return this.renderNormal();
+            } else {
+                return this.renderSaveForm( );
+            }
+        },
+        renderNormal: function () {
+            var buttonClass = 'hidden';
+            if(this.state.showButtons) {
+                buttonClass = '';
+            }
+            return (
+                    <div className="commentContainer col-md-11">
+                        <h3>{this.props.children}</h3>
+                        <p>{this.props.subtitle}</p>
+                        <p>Show Buttons:
+                            <input type="checkbox" name="show-buttons" onChange={this.toggleButtons}
+                                   defaultChecked={this.state.showButtons}/>
+                        </p>
+                        <div className={buttonClass}>
+                            <button onClick={this.editBtn} className="button-primary col-md-5">Edit</button>
+                            <button onClick={this.removeBtn} className="button-danger col-md-5">Remove</button>
+                        </div>
+                    </div>
+            );
+        },
+        renderSaveForm: function () {
+            return (
+                    <div className="commentContainer col-md-11">
+                        <p>Title:</p>
+                        <input type="text" ref="project-title" name="project-title" value={this.props.children} />
+                        <p></p>
+                        <p>Subtitle:</p>
+                        <input type="text" ref="project-subTitle" name="project-subTitle" value={this.props.subtitle} />
+                        <p></p>
+                        <div>
+                            <button onClick={this.save} className="button-success-light col-md-5">Save</button>
+                        </div>
+                    </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+        <h2>Welcome to React!</h2>,
+        document.getElementById('example')
+    );
+
+    ReactDOM.render(
+        <div className="board col-md-12">
+            <Projects subtitle="Learning Angular 2.0">Angular</Projects>
+            <Projects subtitle="Begining for React">React</Projects>
+            <Projects subtitle="Ember example">Ember</Projects>
+        </div>,
+        document.getElementById('container')
+    );
+</script>
+
+</body>
+</html>
