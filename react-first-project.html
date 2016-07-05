@@ -27,13 +27,14 @@
             this.setState({ editing: true });
         },
         removeBtn: function() {
-            console.log('Remove Clicked');
+            this.props.removeProject(this.props.index);
         },
         save: function () {
-            console.log(
-                this.refs.projectTitle.value,
-                this.refs.projectSubTitle.value
-            )
+            var project = {
+                title: this.refs.projectTitle.value,
+                subtitle: this.refs.projectSubTitle.value
+            };
+            this.props.saveProject(project, this.props.index);
             this.setState({ editing: false });
         },
         render: function() {
@@ -72,10 +73,10 @@
             return (
                     <div className="commentContainer col-md-11">
                         <p>Title:</p>
-                        <input type="text" ref="projectTitle" name="project-title" value={this.props.children} />
+                        <input type="text" ref="projectTitle" value={this.props.children} onChange={function() {}} />
                         <p></p>
                         <p>Subtitle:</p>
-                        <input type="text" ref="projectSubTitle" name="project-subTitle" value={this.props.subtitle} />
+                        <input type="text" ref="projectSubTitle" value={this.props.subtitle} onChange={function() {}} />
                         <p></p>
                         <div>
                             <button onClick={this.save} className="button-success-light col-md-5">Save</button>
@@ -96,13 +97,28 @@
                 ]
             };
         },
+        removeProject: function (i) {
+            var projects = this.state.todoList;
+            projects.splice(i, 1);
+            this.setState({ todoList: projects });
+        },
+        saveProject: function (project, i) {
+            var projects = this.state.todoList;
+            projects[i] = project;
+            this.setState({ todoList: projects });
+        },
+        eachProject: function (project, i) {
+            return (
+                    <Project key={i} saveProject={this.saveProject} removeProject={this.removeProject} subtitle={project.subtitle} index={i}>
+                        {project.title}
+                    </Project>
+            )
+        },
         render: function () {
             return (
                     <div className="board col-md-12">
                         {
-                            this.state.todoList.map(function (project, i) {
-                                return (<Project key={i} subtitle={project.subtitle}>{project.title}</Project>)
-                            })                                
+                            this.state.todoList.map(this.eachProject)
                         }
                     </div>
             )
