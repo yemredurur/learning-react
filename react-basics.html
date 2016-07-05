@@ -29,17 +29,19 @@
             this.setState({ showButtons: !this.state.showButtons })
         },
         render: function() {
-            var buttonClass = 'button-primary col-md-5 hidden';
+            var buttonClass = 'hidden';
             if(this.state.showButtons) {
-                buttonClass = 'button-primary col-md-5';
+                buttonClass = '';
             }
             return (
                 <div className="commentContainer col-md-11">
                     <h3>{this.props.children}</h3>
                     <p>{this.props.subtitle}</p>
                     <p>Show Buttons: <input type="checkbox" name="show-buttons" onChange={this.toggleButtons} defaultChecked={this.state.showButtons} /></p>
-                    <button onClick={this.editBtn} className={this.buttonClass}>Edit</button>
-                    <button onClick={this.removeBtn} className={this.buttonClass}>Remove</button>
+                    <div className={buttonClass}>
+                        <button onClick={this.editBtn} className="button-primary col-md-5">Edit</button>
+                        <button onClick={this.removeBtn} className="button-danger col-md-5">Remove</button>
+                    </div>
                 </div>
             );
         }
